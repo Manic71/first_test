@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Turnier-App</title>
+
+  <!-- Tailwind CDN (für Start/Prototyp) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Optional: Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    /* Print: Navigation ausblenden */
+    @media print {
+      .no-print { display: none !important; }
+      .print-page { box-shadow: none !important; }
+      body { background: white !important; }
+      .break-after-page { break-after: page; }
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+  <div id="app"></div>
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>
