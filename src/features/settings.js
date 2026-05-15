@@ -8,6 +8,10 @@ export function SettingsPage(state) {
   const startMin = safeTimeToMin(t.startTime);
   const endMin = safeTimeToMin(t.endTime);
   const timeInvalid = Number.isFinite(startMin) && Number.isFinite(endMin) && startMin > endMin;
+  const slotMin = Number(t.gameDurationMin) + Number(t.breakMin);
+  const availableMin = Number.isFinite(startMin) && Number.isFinite(endMin) ? Math.max(0, endMin - startMin) : 0;
+  const maxRounds = slotMin > 0 ? Math.floor(availableMin / slotMin) : 0;
+  const canShowMaxRounds = Number.isFinite(startMin) && Number.isFinite(endMin) && !timeInvalid;
 
   const timeInputClass = (isInvalid) =>
     `h-10 w-full rounded-xl border bg-white pl-11 pr-11 px-3 outline-none focus:ring-2 ${
@@ -199,7 +203,17 @@ export function SettingsPage(state) {
                   </div>
                 </div>
               `
-                : ""
+                : canShowMaxRounds
+                  ? `
+                    <div class="mt-4 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3">
+                      <div class="text-sm font-semibold text-slate-900">Maximale Runden</div>
+                      <div class="text-sm text-slate-600 mt-1">
+                        In der gewählten Turnierzeit von ${escapeHtml(t.startTime)} bis ${escapeHtml(t.endTime)} können maximal
+                        <span class="font-semibold"> ${maxRounds} </span> Runden gespielt werden.
+                      </div>
+                    </div>
+                  `
+                  : ""
             }
           </div>
 
